@@ -89,4 +89,4 @@ The returned list will have 2 elements. The first one stands for the residence p
 
 -   **Authors**
 
-J. W. wrote the function; H. B. and J. W. conceptulized the idea.
+J. W.

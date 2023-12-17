@@ -4,6 +4,8 @@ authors:
 - family-names: "Wang"
   given-names: "Jiangyue"
   orcid: "https://orcid.org/0000-0002-5542-9061"
+- family-names: "Bu"
+  given-names: "Hongliang"
 title: "nomads: Functions for detecting residence and non-residence phase in nomadic movement tracks"
 version: 0.0.0
 date-released: 2023-12-17

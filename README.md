@@ -71,9 +71,13 @@ This function is to calculate the intended movement features of each phase. Resi
 
 features \<- (mvtrk, disp_outl, STBL_PRED = 7)
 
-#see residence phase features features[[1]]
+#see residence phase features 
 
-#see non-residence phase features features[[2]]
+features[[1]]
+
+#see non-residence phase features 
+
+features[[2]]
 
 -   **Arguments**
 
@@ -86,6 +90,34 @@ features \<- (mvtrk, disp_outl, STBL_PRED = 7)
 -   **Values**
 
 The returned list will have 2 elements. The first one stands for the residence phases, while the second for the non-residence phases.
+
+-   **Authors**
+
+J. W.
+
+### [*fix_step2*](src/FUNCTION-fix_step2.R) fix peak identification caveats
+
+-   **Description**
+
+As there are peaks identified may not be true non-residence phases (negative period value), this function is to delete those "false peaks" and only remain the true non-residence phases.
+
+-   **Usage**
+
+outl_fixed \<- fix_step2(features, disp_outl, STBL_PRED = 7)
+
+features_fixed \<- step3(mvtrk, disp_outl = outl_fixed, STBL_PRED = 7)
+
+-   **Arguments**
+
+**features:** object returned by initial *step3* function.
+
+**disp_outl:** object returned by initial *step2* function.
+
+**STBL_PRED:** A number indicating fixed time window. Default set as 7 (days).
+
+-   **Values**
+
+Returned dataframe will classify all movement points to residence or non-residence phase, excluding points within the last 7 (or other values set for PRED STBL) days. Columnes include "time" and "clusterID_fixed". Points representing residence phase will be assigned 0 for the fixed cluster ID, while other non-residence phases will each have a distinct ID.
 
 -   **Authors**
 

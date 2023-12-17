@@ -61,6 +61,7 @@ step2 <- function(mvtrk, STBL_PRED = 7){
   for(i in 1:length(unique(disp_outl$clusterID[disp_outl$clusterID!=0]))){
     peak_start <- min(disp_outl$time[disp_outl$clusterID==i])
     tmp_loc <- disp_outl %>% filter(time<=peak_start, time>=last_peak_end)
+    if(nrow(tmp_loc)<2){next}
     for(j in nrow(tmp_loc):2){
       if((tmp_loc$Var[j]-tmp_loc$Var[j-1])>=0){
         disp_outl$clusterID[disp_outl$rownum==tmp_loc$rownum[j]] <- i

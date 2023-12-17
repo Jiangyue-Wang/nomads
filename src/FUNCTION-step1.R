@@ -14,7 +14,7 @@ step1 <- function(mvtrk, window = 1:30, method = "smooth"){
     
     end_row <- max(which(mvtrk$Time<=(end_time - duration(days=timelag))))
   
-    for(j in 1:end_row){
+    for(j in round(seq(1,end_row, length.out = 30))){
       first_position_time <- mvtrk[j,"Time"]
       
       # filter temporary positions for variance calculation

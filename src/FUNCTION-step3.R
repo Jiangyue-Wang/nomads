@@ -26,6 +26,7 @@ step3 <- function(mvtrk, disp_outl, STBL_PRED = 7){
     res_feature$end_time[i] <- max(tmp_outl$time) + duration(STBL_PRED,"days")
     res_feature$Period[i] <- res_feature$end_time[i] - res_feature$start_time[i]
     tmp_loc <- mvtrk %>% filter(Time <= res_feature$end_time[i] & Time >= res_feature$start_time[i]) %>% st_as_sf(coords = c("x","y")) %>% dplyr::select(geometry) %>% as_Spatial()
+    if(nrow(tmp_loc) < 5){next}
     res_feature$patch_size[i] <- kernel.area(kernelUD(tmp_loc), percent = 95)
     
   }

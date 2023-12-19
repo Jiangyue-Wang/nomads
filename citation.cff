@@ -7,6 +7,6 @@ authors:
 - family-names: "Bu"
   given-names: "Hongliang"
 title: "nomads: Functions for detecting residence and non-residence phase in nomadic movement tracks"
-version: 0.0.0
+version: 0.0.0-alpha.1
 date-released: 2023-12-17
 url: "https://github.com/Jiangyue-Wang/nomads"

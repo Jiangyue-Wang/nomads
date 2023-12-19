@@ -29,8 +29,8 @@ step2 <- function(mvtrk, STBL_PRED = 7){
   disp_var_outl <- continuous_var %>% mutate(rownum = row_number()) %>% arrange(desc(Var)) %>% mutate(outlier = F)
   
   for(i in 1:nrow(disp_var_outl)){
-    mean_var <- disp_var_outl %>% filter(!outlier) %>% dplyr::select(Var) %>% as.vector() %>% unlist() %>% mean()
-    std_var <- disp_var_outl %>% filter(!outlier) %>% dplyr::select(Var) %>% as.vector() %>% unlist() %>% sd()
+    mean_var <- mean(disp_var_outl %>% filter(!outlier) %>% dplyr::select(Var) %>% as.vector() %>% unlist(), na.rm = T)
+    std_var <- sd(disp_var_outl %>% filter(!outlier) %>% dplyr::select(Var) %>% as.vector() %>% unlist(), na.rm=T)
     if(disp_var_outl$Var[i]>(mean_var+3*std_var)){
       disp_var_outl$outlier[i] <- T
     }
@@ -60,7 +60,7 @@ step2 <- function(mvtrk, STBL_PRED = 7){
   last_peak_end <- disp_outl$time[1]
   for(i in 1:length(unique(disp_outl$clusterID[disp_outl$clusterID!=0]))){
     peak_start <- min(disp_outl$time[disp_outl$clusterID==i])
-    tmp_loc <- disp_outl %>% filter(time<=peak_start, time>=last_peak_end)
+    tmp_loc <- disp_outl %>% filter(time<=peak_start, time>=last_peak_end) %>% filter(!is.na(Var))
     if(nrow(tmp_loc)<2){next}
     for(j in nrow(tmp_loc):2){
       if((tmp_loc$Var[j]-tmp_loc$Var[j-1])>=0){
@@ -69,7 +69,7 @@ step2 <- function(mvtrk, STBL_PRED = 7){
       else{break}
     }
     peak_end <- max(disp_outl$time[disp_outl$clusterID==i])
-    tmp_loc <- disp_outl %>% filter(time>=peak_end)
+    tmp_loc <- disp_outl %>% filter(time>=peak_end) %>% filter(!is.na(Var))
     
     for(j in 2:nrow(tmp_loc)){
       if(nrow(tmp_loc) < 2){break}
